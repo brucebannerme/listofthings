@@ -21,9 +21,8 @@ const QuestionnaireComponent = () => {
       }
     }
   };
-  const sendMessageToWhatsApp = () => {
-    const message = formatMessage();
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  const sendMessageToWhatsApp = (res) => {
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(res)}`;
     window.open(url, '_blank');
   };
   const handleReset = () => {
