@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
 import { Card, Button } from 'antd';
-// import { friendQuestions } from './list';
+import { friendQuestions } from './list';
 // import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 
-const friendQuestions = [{
-  question: "What's your favorite movie?",
-  category: "Entertainment"
-},
-{
-  question: "If you could travel anywhere, where would you go?",
-  category: "Travel"
-},
-{
-  question: "What's your dream job?",
-  category: "Career"
-}]
 const QuestionnaireComponent = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [answer, setAnswer] = useState('');
+  const phoneNumber = window.localStorage.getItem("no") || '1234567890'; // Replace with the recipient's phone number
 
   const handleNext = () => {
     if (answer.trim()) {
@@ -34,7 +23,6 @@ const QuestionnaireComponent = () => {
   };
   const sendMessageToWhatsApp = () => {
     const message = formatMessage();
-    const phoneNumber = localStorage.getItem("no") || '1234567890'; // Replace with the recipient's phone number
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
@@ -45,7 +33,7 @@ const QuestionnaireComponent = () => {
     setAnswer('');
   };
   const formatMessage = (data) => {
-    if(!data) return [];
+    if (!data) return [];
     return data.map(item => `${item.question} ${item.answer}`).join('\n');
   };
   const sendMsg = () => {
@@ -54,7 +42,7 @@ const QuestionnaireComponent = () => {
       question: question?.question,
       answer: answers[index.toString()] // Convert index to string to match the keys in the answers object
     }));
-    console.log("questionAnswerPairs",questionAnswerPairs)
+    console.log("questionAnswerPairs", questionAnswerPairs)
     const res = formatMessage(questionAnswerPairs)
     sendMessageToWhatsApp(res)
   };

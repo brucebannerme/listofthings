@@ -11,7 +11,7 @@ function App() {
     // Extract the userId from the query parameters
     const params = new URLSearchParams(window.location.search);
     const id = params.get('no');
-    window.localStorage.setItem("no",userId)
+    window.localStorage.setItem("no",id)
     setUserId(id);
   }, []);
   return (
